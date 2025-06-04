@@ -1,0 +1,212 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+object,
+iframe,
+figure,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+code,
+em,
+img,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+b,
+u,
+i,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+main,
+canvas,
+embed,
+footer,
+header,
+nav,
+section,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+     -moz-text-size-adjust: none;
+          text-size-adjust: none;
+}
+
+footer,
+header,
+nav,
+section,
+main {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input {
+  border-radius: 0;
+}
+
+:root {
+  --light-grey: #FAF3F7;
+  --light-blue: #96BDEB;
+  --dark-blue: #0C2A4C;
+}
+
+@font-face {
+  font-family: "Nunito-Bold";
+  src: url(/font/Nunito-Bold.ttf);
+}
+@font-face {
+  font-family: "Nunito-ExtraBold";
+  src: url(/font/Nunito-ExtraBold.ttf);
+}
+@font-face {
+  font-family: "Nunito-Light";
+  src: url(/font/Nunito-Light.ttf);
+}
+@font-face {
+  font-family: "Nunito-Medium";
+  src: url(/font/Nunito-Medium.ttf);
+}
+@font-face {
+  font-family: "Nunito-SemiBold";
+  src: url(/font/Nunito-SemiBold.ttf);
+}
+@font-face {
+  font-family: "Nunito-Regular";
+  src: url(/font/Nunito-Regular.ttf);
+}
+@font-face {
+  font-family: "KGPerfectPenmanship";
+  src: url(/font/KGPerfectPenmanship.ttf);
+}
+body {
+  background-color: var(--light-grey);
+}
+
+.mobile-header {
+  display: flex;
+  width: 100%;
+  height: 80px;
+  background-color: var(--light-blue);
+  position: relative;
+}
+.mobile-header figure {
+  width: 100%;
+  max-width: 60px;
+  margin: 0 1rem;
+}
+.mobile-header figure img {
+  width: 100%;
+  position: relative;
+}
+.mobile-header .burger-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translate(-50%, 0);
+  color: var(--light-grey);
+}
+.mobile-header .burger-menu {
+  background-color: var(--light-blue);
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 200px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+.mobile-header .burger-menu ul {
+  margin: 0 0.5rem;
+}
+.mobile-header .burger-menu ul li {
+  line-height: 2rem;
+}
+.mobile-header .burger-menu ul li:hover > ul {
+  opacity: 1;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+}
+.mobile-header .burger-menu ul li a, .mobile-header .burger-menu ul li span {
+  color: var(--light-grey);
+  font-family: "Nunito-Medium";
+  cursor: pointer;
+}
+.mobile-header .burger-menu ul ul {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.burger-menu.open {
+  max-height: 500px;
+  opacity: 1;
+}/*# sourceMappingURL=style-back.css.map */

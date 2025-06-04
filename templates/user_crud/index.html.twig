@@ -1,0 +1,50 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Page CRUD User | Infantia{% endblock %}
+
+{% block body %}
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>First_name</th>
+                <th>Last_name</th>
+                <th>Phone_number</th>
+                <th>Birth_date</th>
+                <th>Gender</th>
+                <th>IsVerified</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|map(r => r|replace({'ROLE_': ''})|lower|capitalize)|join(', ') : '' }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.birthDate ? user.birthDate|date('Y-m-d') : '' }}</td>
+                <td>{{ user.gender }}</td>
+                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_user_crud_show', {'id': user.id}) }}">Voir</a>
+                    <a href="{{ path('app_user_crud_edit', {'id': user.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_crud_new') }}">Ajouter</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Child</title>
+
+{% block body %}
+    <h1>Create new Child</h1>
+
+    {{ include('child_crud/_form.html.twig') }}
+
+    <a href="{{ path('app_child_crud_index') }}">back to list</a>
+{% endblock %}

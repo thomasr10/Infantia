@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="/img/fav_icon.svg">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/style-back.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="mobile-header">
+            <figure><img src="/img/logo-infantia.png" alt="Logo Infantia"/></figure>
+            {% if not app.user %}
+            <a href="{{path("app_login")}}">Connexion</a>
+            {% else %}
+            <div id="burger-btn" class="burger-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg>           
+            </div>
+            <div id="burger-menu" class="burger-menu">
+                <ul>
+                    <li><a href="">Accueil</a></li>
+                    <li><a href="">Planning du jour</a></li>
+                    <li><a href="">Messagerie</a></li>
+                    <li>
+                        <span>Responsables légaux</span>
+                        <ul>
+                            <li><a href="">Rechercher</a></li>
+                            <li><a href="">Ajouter</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>Enfants</span>
+                        <ul>
+                            <li><a href="">Rechercher</a></li>
+                            <li><a href="">Ajouter</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <span>Éducateurs</span>
+                        <ul>
+                            <li><a href="">Rechercher</a></li>
+                            <li><a href="">Ajouter</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{path("app_logout")}}">Déconnexion</a></li>
+                </ul>
+            </div>
+            {% endif %}   
+        </nav>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/burger-menu.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

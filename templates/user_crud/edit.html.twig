@@ -1,0 +1,13 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Page CRUD User | Infantia{% endblock %}
+
+{% block body %}
+    <h1>Edit User</h1>
+
+    {{ include('user_crud/_form.html.twig', {'button_label': 'Valider'}) }}
+
+    <a href="{{ path('app_user_crud_index') }}">Retour</a>
+
+    {{ include('user_crud/_delete_form.html.twig') }}
+{% endblock %}

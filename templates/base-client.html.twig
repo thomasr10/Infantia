@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="/img/fav_icon.svg">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('styles/style-client.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        <nav class="mobile-header">
+            <figure><img src="/img/logo-infantia.png" alt="Logo Infantia"/></figure>
+            {% if not app.user %}
+            <a href="{{path("app_login")}}">Connexion</a>
+            {% else %}
+            <a href="{{path("app_logout")}}">Déconnexion</a>
+            {% endif %}   
+        </nav>
+        {% block body %}{% endblock %}
+
+        {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </body>
+</html>

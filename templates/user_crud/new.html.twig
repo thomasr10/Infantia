@@ -1,0 +1,24 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Ajouter un utilisateur | Infantia{% endblock %}
+{% block body %}
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+    <h1>Créer un nouvel utilisateur</h1>
+
+    {{ include('user_crud/_form.html.twig') }}
+
+    <a href="{{ path('app_user_crud_index') }}">Retour</a>
+    
+{% endblock %}
+{% block javascripts %} 
+    {{ parent() }}
+    <script src="{{asset('js/user_form.js')}}"></script>
+{% endblock %}
