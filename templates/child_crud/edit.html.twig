@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+{% extends 'base-back.html.twig' %}
 
-<title>Edit Child</title>
+{% block title %}Page d'accueil | Infantia{% endblock %}
 
 {% block body %}
     <h1>Edit Child</h1>
 
     {{ include('child_crud/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_child_crud_index') }}">back to list</a>
+    <a href="{{ path('app_child_crud_index') }}">Retour</a>
 
     {{ include('child_crud/_delete_form.html.twig') }}
 {% endblock %}

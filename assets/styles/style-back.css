@@ -171,6 +171,7 @@ body {
   top: 50%;
   transform: translate(-50%, 0);
   color: var(--light-grey);
+  cursor: pointer;
 }
 .mobile-header .burger-menu {
   background-color: var(--light-blue);

@@ -40,7 +40,6 @@ class UserForm extends AbstractType
             ->add('phone_number')
             ->add('birth_date');
 
-        // Ajout des champs conditionnels à l'affichage initial
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $form = $event->getForm();
             $user = $event->getData();

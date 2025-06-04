@@ -56,6 +56,9 @@ class Child
     #[ORM\OneToMany(targetEntity: ChildPresence::class, mappedBy: 'child')]
     private Collection $childPresences;
 
+    #[ORM\Column(length: 25)]
+    private ?string $gender = null;
+
     public function __construct()
     {
         $this->allergy = new ArrayCollection();
@@ -227,6 +230,18 @@ class Child
                 $childPresence->setChild(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): static
+    {
+        $this->gender = $gender;
 
         return $this;
     }

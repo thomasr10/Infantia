@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Child;
 use App\Form\ChildForm;
 use App\Repository\ChildRepository;
+use App\Repository\RepresentativeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,16 +24,24 @@ final class ChildCrudController extends AbstractController
     }
 
     #[Route('/new', name: 'app_child_crud_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, RepresentativeRepository $representativeRepository): Response
     {
         $child = new Child();
         $form = $this->createForm(ChildForm::class, $child);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
             $entityManager->persist($child);
             $entityManager->flush();
+            
+            $representativeId = $request->request->get('representativeId');
 
+            $representativeEntity = $representativeRepository->findOneById($representativeId);
+            $child->addRepresentative($representativeEntity);
+            $entityManager->persist($child);
+            $entityManager->flush();
+            
             return $this->redirectToRoute('app_child_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 

@@ -57,4 +57,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                ->getOneOrNullResult()
            ;
        }
+
+       public function getRepresentativeByUserName(string $name): array
+       {
+            return $this->createQueryBuilder('u')
+                ->select('u.id as userId, u.first_name, u.last_name, r.id as representativeId')
+                ->join('App\Entity\Representative', 'r', 'WITH', 'r.user_id = u')
+                ->where('u.first_name LIKE :name OR u.last_name LIKE :name')
+                ->setParameter('name', '%' . $name . '%')
+                ->getQuery()
+                ->getArrayResult()
+            ;
+       }
 }

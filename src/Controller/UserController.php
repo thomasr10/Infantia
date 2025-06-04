@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 final class UserController extends AbstractController
 {
@@ -33,5 +35,13 @@ final class UserController extends AbstractController
         }
 
         return $this->render('user/create_password.html.twig', [ 'form' => $form->createView()]);
+    }
+
+    #[Route('/admin/search-representative/{name}', name: 'app_search_representative', requirements: ['_format' => 'application/json'])]
+    public function getRepresentativeByName(string $name, UserRepository $userRepository):JsonResponse
+    {   
+        $arrayRepresentative = $userRepository->getRepresentativeByUserName($name);
+
+        return $this->json(['array_user' => $arrayRepresentative]);
     }
 }
