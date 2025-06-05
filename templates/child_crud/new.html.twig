@@ -6,7 +6,7 @@
     <h1>Create new Child</h1>
 
     {{ include('child_crud/_form.html.twig') }}
-    <section id="representative">
+    <section id="representative_section">
         <div>
             <label for="representative">Rechercher représentant</label>
             <input type="search" id="representative" name="representative">
@@ -22,87 +22,85 @@
             <label for="last_name">Nom</label>
             <input type="text" id="last_name" name="last_name" required disabled>
         </div>
-
         <div id="result"></div>
     </section>
-    <section id="presence">
+    <section id="presence_section">
         <ul> 
             <li>
                 Lundi
                 <div>
                     <label for="lun_presence">Présent</label>
-                    <input type="checkbox" id="lun_presence" name="presence" required/>
+                    <input type="checkbox" id="lun_presence" name="presence[lun][is_present]" />
                 </div>
                 <div>
                     <label for="lun_entrance_hour">Arrivée</label>
-                    <input type="time" id="lun_entrance_hour" name="entrance_hour" required disabled/>
+                    <input type="time" id="lun_entrance_hour" name="presence[lun][entrance_hour]" required disabled/>
                 </div>  
                 <div>
-                    <label for="mon_exit_hour">Départ</label>
-                    <input type="time" id="mon_exit_hour" name="exit_hour" required disabled/>
+                    <label for="lun_exit_hour">Départ</label>
+                    <input type="time" id="lun_exit_hour" name="presence[lun][exit_hour]" required disabled/>
                 </div>  
             </li>
             <li>
                 Mardi
                 <div>
                     <label for="mar_presence">Présent</label>
-                    <input type="checkbox" id="mar_presence" name="presence" required/>
+                    <input type="checkbox" id="mar_presence" name="presence[mar][is_present]" />
                 </div>
                 <div>
                     <label for="mar_entrance_hour">Arrivée</label>
-                    <input type="time" id="mar_entrance_hour" name="entrance_hour" required disabled/>
+                    <input type="time" id="mar_entrance_hour" name="presence[mar][entrance_hour]" required disabled/>
                 </div>  
                 <div>
                     <label for="mar_exit_hour">Départ</label>
-                    <input type="time" id="mar_exit_hour" name="exit_hour" required disabled/>
+                    <input type="time" id="mar_exit_hour" name="presence[mar][exit_hour]" required disabled/>
                 </div>  
             </li>
             <li>
                 Mercredi
                 <div>
                     <label for="mer_presence">Présent</label>
-                    <input type="checkbox" id="mer_presence" name="presence" required/>
+                    <input type="checkbox" id="mer_presence" name="presence[mer][is_present]" />
                 </div>
                 <div>
                     <label for="mer_entrance_hour">Arrivée</label>
-                    <input type="time" id="mer_entrance_hour" name="entrance_hour" required disabled/>
+                    <input type="time" id="mer_entrance_hour" name="presence[mar][entrance_hour]" required disabled/>
                 </div>  
                 <div>
                     <label for="mer_exit_hour">Départ</label>
-                    <input type="time" id="mer_exit_hour" name="exit_hour" required disabled/>
+                    <input type="time" id="mer_exit_hour" name="presence[mer][exit_hour]" required disabled/>
                 </div>  
             </li>
             <li>
                 Jeudi
                 <div>
                     <label for="jeu_presence">Présent</label>
-                    <input type="checkbox" id="jeu_presence" name="presence" required/>
+                    <input type="checkbox" id="jeu_presence" name="presence[jeu][is_present]" />
                 </div>
                 <div>
                     <label for="jeu_entrance_hour">Arrivée</label>
-                    <input type="time" id="jeu_entrance_hour" name="entrance_hour" required disabled/>
+                    <input type="time" id="jeu_entrance_hour" name="presence[jeu][entrance_hour]" required disabled/>
                 </div>  
                 <div>
                     <label for="jeu_exit_hour">Départ</label>
-                    <input type="time" id="jeu_exit_hour" name="exit_hour" required disabled/>
+                    <input type="time" id="jeu_exit_hour" name="presence[jeu][exit_hour]" required disabled/>
                 </div>  
             </li>
             <li>
                 Vendredi
                 <div>
                     <label for="ven_presence">Présent</label>
-                    <input type="checkbox" id="ven_presence" name="presence" required/>
+                    <input type="checkbox" id="ven_presence" name="presence[ven][is_present]" />
                 </div>
                 <div>
                     <label for="ven_entrance_hour">Arrivée</label>
-                    <input type="time" id="ven_entrance_hour" name="entrance_hour" required disabled/>
+                    <input type="time" id="ven_entrance_hour" name="presence[ven][entrance_hour]" required disabled/>
                 </div>  
                 <div>
                     <label for="ven_exit_hour">Départ</label>
-                    <input type="time" id="ven_exit_hour" name="exit_hour" required disabled/>
+                    <input type="time" id="ven_exit_hour" name="presence[ven][exit_hour]" required disabled/>
                 </div>  
             </li>
-
         </ul>
     </section>
 
@@ -110,6 +108,6 @@
 
     {% block javascripts %} 
         {{ parent() }}
-        <script src="{{asset('js/child_representative.js')}}"></script>
+        <script src="{{asset('js/child_crud_new.js')}}"></script>
     {% endblock %}
 {% endblock %}

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit ChildPresence</title>
+
+{% block body %}
+    <h1>Edit ChildPresence</h1>
+
+    {{ include('child_presence_crud/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_child_presence_crud_index') }}">back to list</a>
+
+    {{ include('child_presence_crud/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<title>ChildPresence index</title>
+
+{% block body %}
+    <h1>ChildPresence index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Entrance_hour</th>
+                <th>Exit_hour</th>
+                <th>Is_present</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for child_presence in child_presences %}
+            <tr>
+                <td>{{ child_presence.id }}</td>
+                <td>{{ child_presence.entranceHour ? child_presence.entranceHour|date('H:i:s') : '' }}</td>
+                <td>{{ child_presence.exitHour ? child_presence.exitHour|date('H:i:s') : '' }}</td>
+                <td>{{ child_presence.isPresent ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_child_presence_crud_show', {'id': child_presence.id}) }}">show</a>
+                    <a href="{{ path('app_child_presence_crud_edit', {'id': child_presence.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_child_presence_crud_new') }}">Create new</a>
+{% endblock %}

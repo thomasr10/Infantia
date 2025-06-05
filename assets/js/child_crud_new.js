@@ -1,11 +1,15 @@
+// Ajouter un représentant
+
 const result = document.getElementById('result');
 const searchBar = document.getElementById('representative');
 const firstNameInput = document.getElementById('first_name');
 const lastNameInput = document.getElementById('last_name');
 const addRepresentativeBtn = document.getElementById('add_representative');
+const form = document.querySelector('form[name="child_form"]');
+const presenceSection = document.getElementById('presence_section');
 
 searchBar.addEventListener('input', function() {
-    result.innerHTML = '';
+    result.textContent = '';
 
     if (searchBar.value.length > 3) {
 
@@ -38,7 +42,7 @@ searchBar.addEventListener('input', function() {
                     hiddenInput.type = 'hidden';
                     hiddenInput.setAttribute('name', 'representativeId');
                     hiddenInput.value = user.representativeId;
-                    document.querySelector('form[name="child_form"]').append(hiddenInput);
+                    form.append(hiddenInput);
 
                 })
             })
@@ -71,3 +75,36 @@ async function searchUser(value) {
         console.error(err);
     }
 }
+
+
+// Jours de présence
+
+form.append(presenceSection);
+
+const checkBoxArray = document.querySelectorAll('input[type="checkbox"]');
+
+checkBoxArray.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+
+        if (checkbox.checked === true) {
+            const id = this.id.split("_");
+            const prefixeId = id[0];
+
+            const entranceInput = document.querySelector(`input[type="time"]#${prefixeId}_entrance_hour`);
+            const exitInput = document.querySelector(`input[type="time"]#${prefixeId}_exit_hour`);
+            
+            entranceInput.removeAttribute('disabled');
+            exitInput.removeAttribute('disabled');
+
+        } else {
+            const id = this.id.split("_");
+            const prefixeId = id[0];
+
+            const entranceInput = document.querySelector(`input[type="time"]#${prefixeId}_entrance_hour`);
+            const exitInput = document.querySelector(`input[type="time"]#${prefixeId}_exit_hour`);
+            
+            entranceInput.setAttribute('disabled', true);
+            exitInput.setAttribute('disabled', true);
+        }
+    })
+})

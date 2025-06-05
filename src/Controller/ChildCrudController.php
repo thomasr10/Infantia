@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Child;
 use App\Form\ChildForm;
+use App\Form\Date;
 use App\Repository\ChildRepository;
 use App\Repository\RepresentativeRepository;
+use App\Repository\DateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +26,7 @@ final class ChildCrudController extends AbstractController
     }
 
     #[Route('/new', name: 'app_child_crud_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, RepresentativeRepository $representativeRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, RepresentativeRepository $representativeRepository, DateRepository $dateRepository): Response
     {
         $child = new Child();
         $form = $this->createForm(ChildForm::class, $child);
@@ -32,17 +34,48 @@ final class ChildCrudController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $entityManager->persist($child);
-            $entityManager->flush();
+            // $entityManager->persist($child);
+            // $entityManager->flush();
             
+            // add representative_child
             $representativeId = $request->request->get('representativeId');
 
             $representativeEntity = $representativeRepository->findOneById($representativeId);
-            $child->addRepresentative($representativeEntity);
-            $entityManager->persist($child);
-            $entityManager->flush();
+            // $child->addRepresentative($representativeEntity);
+            // $entityManager->persist($child);
+            // $entityManager->flush();
+
+            // add child_presence
             
-            return $this->redirectToRoute('app_child_crud_index', [], Response::HTTP_SEE_OTHER);
+            $presenceData = $request->request->all('presence');
+            $days = [];
+
+            foreach ($presenceData as $day => $data) {
+
+                if ($day === 'lun') {
+                    $day = 'Lundi';
+                }
+                if ($day === 'mar') {
+                    $day = 'Mardi';
+                }
+                if ($day === 'mer') {
+                    $day = 'Mercredi';
+                }
+                if ($day === 'jeu') {
+                    $day = 'Jeudi';
+                }
+                if ($day === 'ven') {
+                    $day = 'Vendredi';
+                }
+
+                $days[] = $day;
+            }
+            $todayDate = date('d/m/Y');
+            var_dump($todayDate);
+
+            $arrayDateEntity = $dateRepository->getDateEntityFromDate($days, $todayDate);
+
+            // return $this->redirectToRoute('app_child_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('child_crud/new.html.twig', [

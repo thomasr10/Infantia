@@ -40,4 +40,14 @@ class DateRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findDatesByDay(array $array, Date $todayDate): array
+    {   
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }
