@@ -16,7 +16,15 @@ final class HomeController extends AbstractController
     public function index(ChildRepository $childRepository, RepresentativeRepository $representativeRepository): Response
     {   
         $user = $this->getUser();
-        $representative = $representativeRepository->getRepresentativeFromUser($user);
+
+        if ($user && in_array('ROLER_PARENT', $user->getRoles()) ) {
+            $representative = $representativeRepository->getRepresentativeFromUser($user);
+            
+            foreach ($representative->getChildren() as $child) {
+                var_dump($child->getFirstName());
+            }            
+        }
+
         
         if (!$this->getUser()) {
             return $this->render('home/index-unco.html.twig');

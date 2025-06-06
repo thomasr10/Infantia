@@ -24,7 +24,7 @@ class UserForm extends AbstractType
                 ],
                 'expanded' => true,
                 'required' => true,
-                'multiple' => true,
+                'multiple' => true
             ])
             ->add('first_name')
             ->add('last_name')

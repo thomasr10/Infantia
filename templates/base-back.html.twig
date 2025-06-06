@@ -20,9 +20,16 @@
             </div>
             <div id="burger-menu" class="burger-menu">
                 <ul>
-                    <li><a href="">Accueil</a></li>
+                    <li><a href="{{path("app_home")}}">Accueil</a></li>
                     <li><a href="">Planning du jour</a></li>
                     <li><a href="">Messagerie</a></li>
+                    <li>
+                        <span>Utilisateurs</span>
+                        <ul>
+                            <li><a href="">Rechercher</a></li>
+                            <li><a href="{{path("app_user_crud_new")}}">Ajouter</a></li>
+                        </ul>
+                    </li>
                     <li>
                         <span>Responsables légaux</span>
                         <ul>

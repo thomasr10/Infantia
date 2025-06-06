@@ -1,0 +1,11 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Page CRUD Allergie | Infantia{% endblock %}
+
+{% block body %}
+    <h1>Create new Allergy</h1>
+
+    {{ include('allergy_crud/_form.html.twig') }}
+
+    <a href="{{ path('app_allergy_crud_index') }}">Retour</a>
+{% endblock %}

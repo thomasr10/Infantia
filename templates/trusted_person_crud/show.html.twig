@@ -1,0 +1,42 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Page CRUD Personne de confiance| Infantia{% endblock %}
+
+{% block body %}
+    <h1>TrustedPerson</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ trusted_person.id }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ trusted_person.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ trusted_person.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Adress</th>
+                <td>{{ trusted_person.adress }}</td>
+            </tr>
+            <tr>
+                <th>Postal_code</th>
+                <td>{{ trusted_person.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ trusted_person.city }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_trusted_person_crud_index') }}">Retour</a>
+
+    <a href="{{ path('app_trusted_person_crud_edit', {'id': trusted_person.id}) }}">Modifier</a>
+
+    {{ include('trusted_person_crud/_delete_form.html.twig') }}
+{% endblock %}
