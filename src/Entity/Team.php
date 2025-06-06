@@ -30,10 +30,23 @@ class Team
     #[ORM\OneToMany(targetEntity: ScheduledActivity::class, mappedBy: 'team')]
     private Collection $scheduledActivities;
 
+    #[ORM\Column]
+    private ?int $age_from = null;
+
+    #[ORM\Column]
+    private ?int $age_to = null;
+
+    /**
+     * @var Collection<int, Child>
+     */
+    #[ORM\OneToMany(targetEntity: Child::class, mappedBy: 'team', orphanRemoval: true)]
+    private Collection $children;
+
     public function __construct()
     {
         $this->educators = new ArrayCollection();
         $this->scheduledActivities = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,6 +120,60 @@ class Team
             // set the owning side to null (unless already changed)
             if ($scheduledActivity->getTeam() === $this) {
                 $scheduledActivity->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAgeFrom(): ?int
+    {
+        return $this->age_from;
+    }
+
+    public function setAgeFrom(int $age_from): static
+    {
+        $this->age_from = $age_from;
+
+        return $this;
+    }
+
+    public function getAgeTo(): ?int
+    {
+        return $this->age_to;
+    }
+
+    public function setAgeTo(int $age_to): static
+    {
+        $this->age_to = $age_to;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Child>
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    public function addChild(Child $child): static
+    {
+        if (!$this->children->contains($child)) {
+            $this->children->add($child);
+            $child->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(Child $child): static
+    {
+        if ($this->children->removeElement($child)) {
+            // set the owning side to null (unless already changed)
+            if ($child->getTeam() === $this) {
+                $child->setTeam(null);
             }
         }
 

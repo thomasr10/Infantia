@@ -26,8 +26,8 @@ class Child
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birth_date = null;
 
-    #[ORM\Column]
-    private ?\DateTime $entrance_date = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $entrance_date = null;
 
     #[ORM\Column]
     private ?int $household_income = null;
@@ -58,6 +58,10 @@ class Child
 
     #[ORM\Column(length: 25)]
     private ?string $gender = null;
+
+    #[ORM\ManyToOne(targetEntity: Team::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Team $team = null;
 
     public function __construct()
     {
@@ -108,12 +112,12 @@ class Child
         return $this;
     }
 
-    public function getEntranceDate(): ?\DateTime
+    public function getEntranceDate(): ?\DateTimeInterface
     {
         return $this->entrance_date;
     }
 
-    public function setEntranceDate(\DateTime $entrance_date): static
+    public function setEntranceDate(\DateTimeInterface $entrance_date): static
     {
         $this->entrance_date = $entrance_date;
 
@@ -242,6 +246,18 @@ class Child
     public function setGender(string $gender): static
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(?Team $team): static
+    {
+        $this->team = $team;
 
         return $this;
     }

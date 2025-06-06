@@ -6,21 +6,38 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\User;
+use App\Repository\ChildRepository;
+use App\Repository\RepresentativeRepository;
 
 
 final class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(ChildRepository $childRepository, RepresentativeRepository $representativeRepository): Response
     {   
         $user = $this->getUser();
-        $first_name = $user?->getFirstName();
-
+        $representative = $representativeRepository->getRepresentativeFromUser($user);
+        
         if (!$this->getUser()) {
-            return $this->render('home/index-client.html.twig');
+            return $this->render('home/index-unco.html.twig');
 
         } else {
-            return $this->render('home/index-back.html.twig');
+            // parent
+            if (in_array('ROLE_PARENT', $user->getRoles())) {
+                return $this->render('home/index-co.html.twig', [
+                    'parent' => $representative->getId()
+                ]);
+            }
+
+            // admin
+            if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                return $this->render('home/index-co.html.twig');
+            }
+
+            // educateur
+            if (in_array('ROLE_EDUCATOR', $user->getRoles())) {
+                return $this->render('home/index-co.html.twig');
+            }
 
         }
 

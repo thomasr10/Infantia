@@ -28,7 +28,7 @@ class ChildPresence
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTime $exit_hour = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $is_present = null;
 
     public function getId(): ?int

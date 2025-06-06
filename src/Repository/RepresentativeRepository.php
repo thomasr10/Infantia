@@ -19,17 +19,15 @@ class RepresentativeRepository extends ServiceEntityRepository
     //    /**
     //     * @return Representative[] Returns an array of Representative objects
     //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       public function getRepresentativeFromUser($user): ?Representative
+       {
+           return $this->createQueryBuilder('r')
+               ->andWhere('r.user_id = :user')
+               ->setParameter('user', $user)
+               ->getQuery()
+               ->getOneOrNullResult()
+           ;
+       }
 
        public function findOneById($id): ?Representative
        {

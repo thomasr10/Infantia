@@ -3,9 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Child;
+use App\Entity\ChildPresence;
 use App\Form\ChildForm;
-use App\Form\Date;
 use App\Repository\ChildRepository;
+use App\Repository\TeamRepository;
 use App\Repository\RepresentativeRepository;
 use App\Repository\DateRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,7 +27,7 @@ final class ChildCrudController extends AbstractController
     }
 
     #[Route('/new', name: 'app_child_crud_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, RepresentativeRepository $representativeRepository, DateRepository $dateRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, RepresentativeRepository $representativeRepository, DateRepository $dateRepository, TeamRepository $teamRepository): Response
     {
         $child = new Child();
         $form = $this->createForm(ChildForm::class, $child);
@@ -34,16 +35,13 @@ final class ChildCrudController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            // $entityManager->persist($child);
-            // $entityManager->flush();
+            $entityManager->persist($child);
             
             // add representative_child
             $representativeId = $request->request->get('representativeId');
 
             $representativeEntity = $representativeRepository->findOneById($representativeId);
-            // $child->addRepresentative($representativeEntity);
-            // $entityManager->persist($child);
-            // $entityManager->flush();
+            $child->addRepresentative($representativeEntity);
 
             // add child_presence
             
@@ -70,12 +68,48 @@ final class ChildCrudController extends AbstractController
 
                 $days[] = $day;
             }
-            $todayDate = date('d/m/Y');
-            var_dump($todayDate);
 
-            $arrayDateEntity = $dateRepository->getDateEntityFromDate($days, $todayDate);
+            $entranceDate = new \DateTime($request->request->all('child_form')['entrance_date']);
+            
+            $arrayDateEntity = $dateRepository->getDateEntityFromDays($days, $entranceDate);
 
-            // return $this->redirectToRoute('app_child_crud_index', [], Response::HTTP_SEE_OTHER);
+            $dayMap = [
+                'Lundi' => 'lun',
+                'Mardi' => 'mar',
+                'Mercredi' => 'mer',
+                'Jeudi' => 'jeu',
+                'Vendredi' => 'ven',
+            ];
+            
+            foreach ($arrayDateEntity as $date) {
+                $day = $date->getDay();
+                $shortDay = $dayMap[$day];
+
+                $entranceHour = $presenceData[$shortDay]['entrance_hour'];
+                $exitHour = $presenceData[$shortDay]['exit_hour'];
+
+                $childPresence = new ChildPresence();
+                $childPresence->setDate($date);
+                $childPresence->setChild($child);
+                $childPresence->setEntranceHour(new \DateTime($entranceHour));
+                $childPresence->setExitHour(new \DateTime($exitHour));
+                $entityManager->persist($childPresence);
+
+            }
+
+            // add child_team
+
+            $birthDate = new \DateTime($request->request->all('child_form')['birth_date']);
+            $diff = $entranceDate->diff($birthDate);
+            $age = $diff->y;
+            
+            $team = $teamRepository->getTeamFromChildAge($age);
+            $child->setTeam($team);
+
+            $entityManager->flush();
+            
+
+            return $this->redirectToRoute('app_child_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('child_crud/new.html.twig', [

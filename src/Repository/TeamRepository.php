@@ -31,13 +31,14 @@ class TeamRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Team
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+       public function getTeamFromChildAge($age): ?Team
+       {
+           return $this->createQueryBuilder('t')
+               ->andWhere('t.age_from <= :age')
+               ->andWhere('t.age_to > :age')
+               ->setParameter('age', $age)
+               ->getQuery()
+               ->getOneOrNullResult()
+           ;
+       }
 }

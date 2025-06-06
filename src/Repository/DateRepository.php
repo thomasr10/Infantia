@@ -41,13 +41,18 @@ class DateRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    public function findDatesByDay(array $array, Date $todayDate): array
+    public function getDateEntityFromDays(array $array, \DateTimeInterface $entrance_date): array
     {   
+        $endDate = (clone $entrance_date)->modify('+1 year'); // clone pour ne pas modifier l'objet original
+
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('d.day IN (:days)')
+            ->andWhere('d.date BETWEEN :entranceDate AND :endDate')
+            ->setParameter('days', $array)
+            ->setParameter('entranceDate', $entrance_date->format('Y-m-d'))
+            ->setParameter('endDate', $endDate->format('Y-m-d'))
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
 }

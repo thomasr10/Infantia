@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250526113422 extends AbstractMigration
+final class Version20250606100956 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,10 @@ final class Version20250526113422 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE user ADD is_verified TINYINT(1) NOT NULL
+            ALTER TABLE child ADD CONSTRAINT FK_22B35429296CD8AE FOREIGN KEY (team_id) REFERENCES team (id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE INDEX IDX_22B35429296CD8AE ON child (team_id)
         SQL);
     }
 
@@ -29,7 +32,10 @@ final class Version20250526113422 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql(<<<'SQL'
-            ALTER TABLE `user` DROP is_verified
+            ALTER TABLE child DROP FOREIGN KEY FK_22B35429296CD8AE
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP INDEX IDX_22B35429296CD8AE ON child
         SQL);
     }
 }
