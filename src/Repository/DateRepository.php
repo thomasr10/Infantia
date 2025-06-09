@@ -55,4 +55,15 @@ class DateRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+
+    public function getTodaysDateEntity(\DateTimeInterface $todayDate): ?Date
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.date = (:date)')
+            ->setParameter('date', $todayDate->format('Y-m-d'))
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

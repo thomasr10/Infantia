@@ -26,31 +26,31 @@
                     <li>
                         <span>Utilisateurs</span>
                         <ul>
-                            <li><a href="">Rechercher</a></li>
+                            <li><a href="{{path("app_user_crud_index")}}">Rechercher</a></li>
                             <li><a href="{{path("app_user_crud_new")}}">Ajouter</a></li>
                         </ul>
                     </li>
-                    <li>
+                    {# <li>
                         <span>Responsables légaux</span>
                         <ul>
                             <li><a href="">Rechercher</a></li>
                             <li><a href="">Ajouter</a></li>
                         </ul>
-                    </li>
+                    </li> #}
                     <li>
                         <span>Enfants</span>
                         <ul>
-                            <li><a href="">Rechercher</a></li>
-                            <li><a href="">Ajouter</a></li>
+                            <li><a href="{{path("app_child_crud_index")}}">Rechercher</a></li>
+                            <li><a href="{{path("app_child_crud_new")}}">Ajouter</a></li>
                         </ul>
                     </li>
-                    <li>
+                    {# <li>
                         <span>Éducateurs</span>
                         <ul>
                             <li><a href="">Rechercher</a></li>
                             <li><a href="">Ajouter</a></li>
                         </ul>
-                    </li>
+                    </li> #}
                     <li><a href="{{path("app_logout")}}">Déconnexion</a></li>
                 </ul>
             </div>

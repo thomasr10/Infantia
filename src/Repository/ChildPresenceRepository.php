@@ -16,20 +16,19 @@ class ChildPresenceRepository extends ServiceEntityRepository
         parent::__construct($registry, ChildPresence::class);
     }
 
-    //    /**
-    //     * @return ChildPresence[] Returns an array of ChildPresence objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       /**
+        * @return ChildPresence[] Returns an array of ChildPresence objects
+        */
+       public function getTodaysPresence($dateEntity): array
+       {
+           return $this->createQueryBuilder('c')
+               ->andWhere('c.date = :dateEntity')
+               ->setParameter('dateEntity', $dateEntity)
+               ->orderBy('c.id', 'ASC')
+               ->getQuery()
+               ->getResult()
+           ;
+       }
 
     //    public function findOneBySomeField($value): ?ChildPresence
     //    {

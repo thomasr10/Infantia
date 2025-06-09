@@ -4,13 +4,10 @@
 
 {% block body %}
 
-<h1>Infos du jour</h1>
-<section id="day-infos">
-
-</section>
-
 {% if is_granted('ROLE_ADMIN') %}
-<h2>TEST admin </h2> 
+<h1>Planning du jour</h1>
+<h2>Infos du jour</h2>
+Nombre d'enfants présents : {{countChildPresence}}
 {% endif %}
 
 {% if is_granted('ROLE_EDUCATOR') %}
