@@ -16,20 +16,20 @@ class ScheduledActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, ScheduledActivity::class);
     }
 
-    //    /**
-    //     * @return ScheduledActivity[] Returns an array of ScheduledActivity objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       /**
+        * @return ScheduledActivity[] Returns an array of ScheduledActivity objects
+        */
+        public function getTodayProgram($todayDateEntity): array
+        {
+            return $this->createQueryBuilder('s')
+                ->leftJoin('s.activity', 'a')
+                ->addSelect('a') // force Doctrine à charger l'activité, pas seulement son proxy
+                ->andWhere('s.date = :todayDate')
+                ->setParameter('todayDate', $todayDateEntity)
+                ->orderBy('s.starting_hour', 'ASC')
+                ->getQuery()
+                ->getResult();
+        }
 
     //    public function findOneBySomeField($value): ?ScheduledActivity
     //    {

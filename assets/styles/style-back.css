@@ -115,6 +115,7 @@ input {
   --light-grey: #FAF3F7;
   --light-blue: #96BDEB;
   --dark-blue: #0C2A4C;
+  --hoverBtn-blue: #90aecf;
 }
 
 @font-face {
@@ -210,4 +211,56 @@ body {
 .burger-menu.open {
   max-height: 500px;
   opacity: 1;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.form-container .login-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.form-container .login-form .h1-login {
+  font-family: "KGPerfectPenmanship";
+  font-size: 2rem;
+  text-align: center;
+}
+.form-container .login-form .login-input {
+  font-family: "KGPerfectPenmanship";
+  font-size: 0.9rem;
+  margin-top: 1.2rem;
+}
+.form-container .login-form input {
+  width: 260px;
+  height: 32px;
+  border-radius: 7px;
+}
+.form-container .login-form .login-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  width: 120px;
+  height: 40px;
+  font-family: "KGPerfectPenmanship";
+  font-size: 1rem;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all ease-in 0.25s;
+  margin-top: 24px;
+}
+
+.blue-btn {
+  background-color: var(--light-blue);
+  color: var(--dark-blue);
+}
+.blue-btn:hover {
+  background-color: var(--hoverBtn-blue);
 }/*# sourceMappingURL=style-back.css.map */

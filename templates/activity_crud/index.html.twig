@@ -1,0 +1,37 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Page CRUD Activité | Infantia{% endblock %}
+
+{% block body %}
+    <h1>Activity index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activity in activities %}
+            <tr>
+                <td>{{ activity.id }}</td>
+                <td>{{ activity.name }}</td>
+                <td>{{ activity.description }}</td>
+                <td>
+                    <a href="{{ path('app_activity_crud_show', {'id': activity.id}) }}">Voir</a>
+                    <a href="{{ path('app_activity_crud_edit', {'id': activity.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_activity_crud_new') }}">Create new</a>
+{% endblock %}

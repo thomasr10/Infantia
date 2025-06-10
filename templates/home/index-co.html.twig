@@ -7,7 +7,97 @@
 {% if is_granted('ROLE_ADMIN') %}
 <h1>Planning du jour</h1>
 <h2>Infos du jour</h2>
-Nombre d'enfants présents : {{countChildPresence}}
+<p>Nombre d'enfants présents : {{countChildPresence}}</p>
+<p>Régimes spéciaux : {{childAllergy}}</p>
+<p>Anniversaires : {{childBirthday}}</p>
+
+<div>
+Programme {{ programPapillons[0].team.name }} :
+
+{% set matinAffiche = false %}
+{% set apresmidiAffiche = false %}
+
+<ul>
+{% for activity in programPapillons %}
+    {% set heure = activity.startingHour|date('H:i') %}
+    
+    {% if heure < '12:00' %}
+        {% if not matinAffiche %}
+            <h3>Matin</h3>
+            {% set matinAffiche = true %}
+        {% endif %}
+        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+    {% else %}
+        {% if not apresmidiAffiche %}
+            <h3>Après-midi</h3>
+            {% set apresmidiAffiche = true %}
+        {% endif %}
+        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+</div>
+
+
+<div>
+Programme {{ programOursons[0].team.name }} :
+
+{% set matinAffiche = false %}
+{% set apresmidiAffiche = false %}
+
+<ul>
+{% for activity in programOursons %}
+    {% set heure = activity.startingHour|date('H:i') %}
+    
+    {% if heure < '12:00' %}
+        {% if not matinAffiche %}
+            <h3>Matin</h3>
+            {% set matinAffiche = true %}
+        {% endif %}
+        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+    {% else %}
+        {% if not apresmidiAffiche %}
+            <h3>Après-midi</h3>
+            {% set apresmidiAffiche = true %}
+        {% endif %}
+        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+</div>
+
+
+{# <div>
+Programme {{ programCastors[0].team.name }} :
+
+{% set matinAffiche = false %}
+{% set apresmidiAffiche = false %}
+
+<ul>
+{% for activity in programCastors %}
+    {% set heure = activity.startingHour|date('H:i') %}
+    
+    {% if heure < '12:00' %}
+        {% if not matinAffiche %}
+            <h3>Matin</h3>
+            {% set matinAffiche = true %}
+        {% endif %}
+        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+    {% else %}
+        {% if not apresmidiAffiche %}
+            <h3>Après-midi</h3>
+            {% set apresmidiAffiche = true %}
+        {% endif %}
+        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+    {% endif %}
+{% endfor %}
+</ul>
+</div> #}
+
+
+<h2>Infos générales</h2>
+<p>Nombre d'enfants inscrits : {{totalChildren}}</p>
+
 {% endif %}
 
 {% if is_granted('ROLE_EDUCATOR') %}

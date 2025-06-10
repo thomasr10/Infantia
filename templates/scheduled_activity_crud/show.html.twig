@@ -1,0 +1,30 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Page CRUD Daily Activité | Infantia{% endblock %}
+
+{% block body %}
+    <h1>Daily Activités</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ scheduled_activity.id }}</td>
+            </tr>
+            <tr>
+                <th>Starting_hour</th>
+                <td>{{ scheduled_activity.startingHour ? scheduled_activity.startingHour|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Ending_hour</th>
+                <td>{{ scheduled_activity.endingHour ? scheduled_activity.endingHour|date('H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_scheduled_activity_crud_index') }}">Retour</a>
+
+    <a href="{{ path('app_scheduled_activity_crud_edit', {'id': scheduled_activity.id}) }}">Modifier</a>
+
+    {{ include('scheduled_activity_crud/_delete_form.html.twig') }}
+{% endblock %}

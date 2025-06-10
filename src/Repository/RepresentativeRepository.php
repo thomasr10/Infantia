@@ -16,9 +16,9 @@ class RepresentativeRepository extends ServiceEntityRepository
         parent::__construct($registry, Representative::class);
     }
 
-    //    /**
-    //     * @return Representative[] Returns an array of Representative objects
-    //     */
+       /**
+        * @return Representative[] Returns an array of Representative objects
+        */
        public function getRepresentativeFromUser($user): ?Representative
        {
            return $this->createQueryBuilder('r')
