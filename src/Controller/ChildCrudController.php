@@ -108,7 +108,6 @@ final class ChildCrudController extends AbstractController
 
             $entityManager->flush();
             
-
             return $this->redirectToRoute('app_child_crud_index', [], Response::HTTP_SEE_OTHER);
         }
 

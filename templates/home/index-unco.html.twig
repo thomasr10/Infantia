@@ -32,5 +32,29 @@
 </section>
 {% endif %}
 
-{% endblock %}
+{% if is_granted('ROLE_PARENT') %}
+<section>
+<div>
+    <select id="child-select">
+        {% for child in childrenEntityArray %}
+            <option value="{{child.firstName}}">{{child.firstName}}</option>
+        {% endfor %}
+    </select>
+</div>
+<div id="program-container"></div>
 
+</section>
+
+
+{% endif %}
+
+
+{% endblock %}
+{% block javascripts %}
+    {% if is_granted('ROLE_PARENT') %}
+        <script id="programs-data" type="text/javascript">
+            window.programs = {{ programByChildName|json_encode|raw }};
+        </script>
+        <script src="{{ asset('js/home_parent.js') }}"></script>
+    {% endif %}
+{% endblock %}

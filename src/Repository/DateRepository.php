@@ -66,4 +66,15 @@ class DateRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    public function getDateEntitiesForAWeek(string $startDate, string $endDate): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.date BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

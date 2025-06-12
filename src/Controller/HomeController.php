@@ -19,20 +19,55 @@ final class HomeController extends AbstractController
     public function index(ChildRepository $childRepository, RepresentativeRepository $representativeRepository, DateRepository $dateRepository, ChildPresenceRepository $childPresenceRepository, ScheduledActivityRepository $scheduledActivityRepository): Response
     {   
         $user = $this->getUser();
+        $todaysDate = new \DateTime(date('Y-m-d'));
+        $todaysDateEntity = $dateRepository->getTodaysDateEntity($todaysDate);
 
         if ($user && in_array('ROLE_PARENT', $user->getRoles())) {
             $representative = $representativeRepository->getRepresentativeFromUser($user);
+            $children = $representative->getChildren();
 
-            foreach ($representative->getChildren() as $child) {
-                var_dump($child->getFirstName());
-            }            
+            // Programme des enfants
+
+            $programByChildName = [];
+
+            foreach ($children as $child) {
+                $childName = $child->getFirstName();
+                $team = $child->getTeam();
+                $scheduledActivity = $scheduledActivityRepository->getTodayProgramForTeam($team, $todaysDateEntity);
+
+                $programByChildName[$childName] = [];
+
+                foreach ($scheduledActivity as $scheduledActivityEntity) {
+                    $activity = $scheduledActivityEntity->getActivity();
+                    $date = $scheduledActivityEntity->getDate();
+                    $team = $scheduledActivityEntity->getTeam();
+                    
+                    $programByChildName[$childName][] = [
+                        'id' => $scheduledActivityEntity->getId(),
+                        'activity' => [
+                            'name' => $activity->getName(),
+                            'description' => $activity->getDescription()
+                        ],
+                        'date_entity' => [
+                            'date' => $date->getDate(),
+                            'day' => $date->getDay()
+                        ],
+                        'team' => [
+                            'team_name' => $team->getName()
+                        ],
+                        'starting_hour' => $scheduledActivityEntity->getStartingHour(),
+                        'ending_hour' => $scheduledActivityEntity->getEndingHour(),
+
+                    ];
+                }
+            }
         }
+
+        
 
         if ($user && in_array('ROLE_ADMIN', $user->getRoles())) {
             // récupérer le nombre d'enfants présents aujourd'hui
 
-            $todaysDate = new \DateTime(date('Y-m-d'));
-            $todaysDateEntity = $dateRepository->getTodaysDateEntity($todaysDate);
             $todaysPresence = $childPresenceRepository->getTodaysPresence($todaysDateEntity);
             $countTodaysPresence = count($todaysPresence);
 
@@ -89,8 +124,9 @@ final class HomeController extends AbstractController
         } else {
             // parent
             if (in_array('ROLE_PARENT', $user->getRoles())) {
-                return $this->render('home/index-co.html.twig', [
-                    
+                return $this->render('home/index-unco.html.twig', [
+                    'childrenEntityArray' => $children,
+                    'programByChildName' => $programByChildName
                 ]);
             }
 

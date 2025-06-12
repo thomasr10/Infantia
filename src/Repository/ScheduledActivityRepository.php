@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\ScheduledActivity;
+use App\Entity\Team;
+use App\Entity\Date;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,7 +21,7 @@ class ScheduledActivityRepository extends ServiceEntityRepository
        /**
         * @return ScheduledActivity[] Returns an array of ScheduledActivity objects
         */
-        public function getTodayProgram($todayDateEntity): array
+        public function getTodayProgram(Date $todayDateEntity): array
         {
             return $this->createQueryBuilder('s')
                 ->leftJoin('s.activity', 'a')
@@ -28,7 +30,20 @@ class ScheduledActivityRepository extends ServiceEntityRepository
                 ->setParameter('todayDate', $todayDateEntity)
                 ->orderBy('s.starting_hour', 'ASC')
                 ->getQuery()
-                ->getResult();
+                ->getResult()
+            ;
+        }
+
+        public function getTodayProgramForTeam(Team $teamEntity, Date $todayDateEntity): array
+        {
+            return $this->createQueryBuilder('s')
+                ->andWhere('s.team = :teamEntity')
+                ->andWhere('s.date = :dateEntity')
+                ->setParameter('teamEntity', $teamEntity)
+                ->setParameter('dateEntity', $todayDateEntity)
+                ->getQuery()
+                ->getResult()
+            ;
         }
 
     //    public function findOneBySomeField($value): ?ScheduledActivity

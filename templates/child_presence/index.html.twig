@@ -1,0 +1,35 @@
+{% extends 'base-client.html.twig' %}
+
+{% block title %}Planning | Infantia{% endblock %}
+{% block body %}
+<table>
+    <thead>
+        <tr>
+            <th>Heure</th>
+            {% for day in calendar %}
+                <th>{{ day.day }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for hour in range(7, 18) %}
+            <tr>
+                <td>{{ hour }}h</td>
+                <td></td>
+                {% for day in calendar %}
+                    <td>
+                        {% for childName, presences in childPresence %}
+                            {% for presence in presences %}
+                                {{presence.entranceHour}}
+
+                            {% endfor %}
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

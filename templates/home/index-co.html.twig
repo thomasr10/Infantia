@@ -12,87 +12,101 @@
 <p>Anniversaires : {{childBirthday}}</p>
 
 <div>
-Programme {{ programPapillons[0].team.name }} :
+{% if programPapillons is not empty %}
+    Programme {{ programPapillons[0].team.name }} :
 
-{% set matinAffiche = false %}
-{% set apresmidiAffiche = false %}
+    {% set matinAffiche = false %}
+    {% set apresmidiAffiche = false %}
 
-<ul>
-{% for activity in programPapillons %}
-    {% set heure = activity.startingHour|date('H:i') %}
-    
-    {% if heure < '12:00' %}
-        {% if not matinAffiche %}
-            <h3>Matin</h3>
-            {% set matinAffiche = true %}
+    <ul>
+    {% for activity in programPapillons %}
+        {% set heure = activity.startingHour|date('H:i') %}
+        
+        {% if heure < '12:00' %}
+            {% if not matinAffiche %}
+                <h3>Matin</h3>
+                {% set matinAffiche = true %}
+            {% endif %}
+            <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+        {% else %}
+            {% if not apresmidiAffiche %}
+                <h3>Après-midi</h3>
+                {% set apresmidiAffiche = true %}
+            {% endif %}
+            <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
         {% endif %}
-        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
-    {% else %}
-        {% if not apresmidiAffiche %}
-            <h3>Après-midi</h3>
-            {% set apresmidiAffiche = true %}
-        {% endif %}
-        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
-    {% endif %}
-{% endfor %}
-</ul>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun programme pour l'équipe des Papillons</p>
+{% endif %}
 </div>
 
 
 <div>
-Programme {{ programOursons[0].team.name }} :
+{% if programOursons is not empty %}
+    Programme {{ programOursons[0].team.name }} :
 
-{% set matinAffiche = false %}
-{% set apresmidiAffiche = false %}
+    {% set matinAffiche = false %}
+    {% set apresmidiAffiche = false %}
 
-<ul>
-{% for activity in programOursons %}
-    {% set heure = activity.startingHour|date('H:i') %}
-    
-    {% if heure < '12:00' %}
-        {% if not matinAffiche %}
-            <h3>Matin</h3>
-            {% set matinAffiche = true %}
+    <ul>
+    {% for activity in programOursons %}
+        {% set heure = activity.startingHour|date('H:i') %}
+        
+        {% if heure < '12:00' %}
+            {% if not matinAffiche %}
+                <h3>Matin</h3>
+                {% set matinAffiche = true %}
+            {% endif %}
+            <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+        {% else %}
+            {% if not apresmidiAffiche %}
+                <h3>Après-midi</h3>
+                {% set apresmidiAffiche = true %}
+            {% endif %}
+            <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
         {% endif %}
-        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
-    {% else %}
-        {% if not apresmidiAffiche %}
-            <h3>Après-midi</h3>
-            {% set apresmidiAffiche = true %}
-        {% endif %}
-        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
-    {% endif %}
-{% endfor %}
-</ul>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun programme pour l'équipe des Oursons</p>
+{% endif %}
 </div>
 
 
-{# <div>
-Programme {{ programCastors[0].team.name }} :
 
-{% set matinAffiche = false %}
-{% set apresmidiAffiche = false %}
+<div>
+{% if programCastors is not empty %}
+    Programme {{ programCastors[0].team.name }} :
 
-<ul>
-{% for activity in programCastors %}
-    {% set heure = activity.startingHour|date('H:i') %}
-    
-    {% if heure < '12:00' %}
-        {% if not matinAffiche %}
-            <h3>Matin</h3>
-            {% set matinAffiche = true %}
+    {% set matinAffiche = false %}
+    {% set apresmidiAffiche = false %}
+
+    <ul>
+    {% for activity in programCastors %}
+        {% set heure = activity.startingHour|date('H:i') %}
+        
+        {% if heure < '12:00' %}
+            {% if not matinAffiche %}
+                <h3>Matin</h3>
+                {% set matinAffiche = true %}
+            {% endif %}
+            <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
+        {% else %}
+            {% if not apresmidiAffiche %}
+                <h3>Après-midi</h3>
+                {% set apresmidiAffiche = true %}
+            {% endif %}
+            <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
         {% endif %}
-        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
-    {% else %}
-        {% if not apresmidiAffiche %}
-            <h3>Après-midi</h3>
-            {% set apresmidiAffiche = true %}
-        {% endif %}
-        <li>{{ heure }} - {{ activity.endingHour|date('H:i') }} : {{ activity.activity.name }}</li>
-    {% endif %}
-{% endfor %}
-</ul>
-</div> #}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun programme pour l'équipe des Castors</p>
+{% endif %}
+</div>
+
 
 
 <h2>Infos générales</h2>
@@ -102,10 +116,6 @@ Programme {{ programCastors[0].team.name }} :
 
 {% if is_granted('ROLE_EDUCATOR') %}
 <h2>TEST educ </h2> 
-{% endif %}
-
-{% if is_granted('ROLE_PARENT') %}
-<h2>TEST parent </h2>
 {% endif %}
 
 {% endblock %}
