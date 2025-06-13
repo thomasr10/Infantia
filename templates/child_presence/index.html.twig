@@ -2,64 +2,118 @@
 
 {% block title %}Planning | Infantia{% endblock %}
 {% block body %}
-<section class="child-planning">
-    <h1>Planning de la semaine</h1>
-    <div>
-        <select id="child-select">
-            {% for childName, presence in childPresence %}
-                <option value="{{childName}}">{{childName}}</option>
-            {% endfor %}
-        </select>
-    </div>
-    {% for childName, presences in childPresence %}
-    <table class="planning" id="table-{{ childName }}" style="{% if not loop.first %}display: none;{% endif %}">
-        <thead>
-            <tr class="planning-row">
-                <th style="width: 32px"></th>
-                {% for day in calendar %}
-                    <th>{{ day.day }}</th>
+{% if is_granted('ROLE_PARENT') %}
+    <section class="child-planning">
+        <h1>Planning de la semaine</h1>
+        <div>
+            <select id="child-select">
+                {% for childName, presence in childPresence %}
+                    <option value="{{childName}}">{{childName}}</option>
                 {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            <tr style="height: 12px;"></tr>
-            {% for hour in range(7, 18) %}
-                <tr>
-                    <td>{{ hour }}h</td>
+            </select>
+        </div>
+        {% for childName, presences in childPresence %}
+        <table class="planning" id="table-{{ childName }}" style="{% if not loop.first %}display: none;{% endif %}">
+            <thead>
+                <tr class="planning-row">
+                    <th style="width: 32px"></th>
                     {% for day in calendar %}
-                        <td class="planning-cell">
-                            {% for presence in presences %}
-                                {% if presence.date.date == day.date %}
-                                    {% set startHour = presence.entranceHour|date("H")|number_format(0, '.', '') %}
-                                    {% set endHour = presence.exitHour|date("H")|number_format(0, '.', '') %}
-                                    {% if hour >= startHour and hour < endHour %}
-                                        <div class="planning-presence"></div>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-                        </td>
+                        <th>{{ day.day }}</th>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endfor %}
+            </thead>
+            <tbody>
+                <tr style="height: 12px;"></tr>
+                {% for hour in range(7, 18) %}
+                    <tr>
+                        <td>{{ hour }}h</td>
+                        {% for day in calendar %}
+                            <td class="planning-cell">
+                                {% for presence in presences %}
+                                    {% if presence.date.date == day.date %}
+                                        {% set startHour = presence.entranceHour|date("H")|number_format(0, '.', '') %}
+                                        {% set endHour = presence.exitHour|date("H")|number_format(0, '.', '') %}
+                                        {% if hour >= startHour and hour < endHour %}
+                                            <div class="planning-presence"></div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
 
-</section>
+    </section>
 
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const select = document.getElementById('child-select');
-        const tables = document.querySelectorAll('.child-table');
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const select = document.getElementById('child-select');
+            const tables = document.querySelectorAll('.child-table');
 
-        select.addEventListener('change', function () {
-            const selected = this.value;
-            tables.forEach(table => {
-                table.style.display = table.id === 'table-' + selected ? 'table' : 'none';
+            select.addEventListener('change', function () {
+                const selected = this.value;
+                tables.forEach(table => {
+                    table.style.display = table.id === 'table-' + selected ? 'table' : 'none';
+                });
             });
         });
-    });
-</script>
+    </script>
+{% endif %}
+
+{% if is_granted('ROLE_EDUCATOR') %}
+    <section class="child-fiche-container">
+        <h1>Planning du jour</h1>
+        {% for childName, childInfo in childPresence %}
+            <div class="child-fiche">
+                <div class="{{ childInfo.gender == 'G' ? 'child-name-g' : 'child-name-f' }}">{{ childName }}</div>
+                <div>
+                    <ul>
+                        <li>
+                            <span class="child-fiche-key">Date d'entrée :</span>
+                            <span class="{{ childInfo.gender == 'G' ? 'child-fiche-info-g' : 'child-fiche-info-f' }}">{{ childInfo.entranceDate|date('d/m/Y') }}</span>
+                        </li>
+                        <li>
+                            <span class="child-fiche-key">Âge :</span>
+                            <span class="{{ childInfo.gender == 'G' ? 'child-fiche-info-g' : 'child-fiche-info-f' }}">{{ childInfo.age }}</span>
+                        </li>
+                        <li>
+                            <span class="child-fiche-key">Total heure cette semaine :</span>
+                            <span class="{{ childInfo.gender == 'G' ? 'child-fiche-info-g' : 'child-fiche-info-f' }}">{{ childInfo.totalTime }}</span>
+                        </li>
+                        {% if childInfo.allergies is not empty %}
+                            <li>
+                                <span class="child-fiche-key">Allergies :</span>
+                                <span>
+                                    {% for allergy in childInfo.allergies %}
+                                        {{ allergy.name }}
+                                    {% endfor %}
+                                </span> 
+                            </li>
+                        {% endif %}
+                        <li>
+                            <span class="child-fiche-key">Jours de présence cette semaine :</span>
+                            <div class="{{ childInfo.gender == 'G' ? 'child-fiche-week-g' : 'child-fiche-week-f' }}">
+                                {% for day in date %}
+                                    <span class="child-fiche-day">{{ day.day }}</span>
+                                    {% for presence in childInfo.presenceDays %}
+                                        {% if presence.date.day == day.day %}
+                                            <span class="child-presence"></span>
+                                        {% endif %}                                
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </li>
+                    </ul>
+                    <button type="button" class="{{ childInfo.gender == 'G' ? 'child-fiche-btn-g' : 'child-fiche-btn-f' }}">Fiche de fin de journée</button>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+{% endif %}
+
 {% endblock %}

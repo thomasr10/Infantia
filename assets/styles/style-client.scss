@@ -114,6 +114,13 @@ input {
     --light-blue: #96BDEB;
     --dark-blue: #0C2A4C;
     --planning-green: lightgreen;
+
+    --fiche-bg-blue: #A6EAED;
+    --fiche-txt-blue: #346BAA;
+    --fiche-bg-pink: #EFA8CB;
+    --fiche-txt-pink: #C92B79;
+    --fiche-bg-white: #FFFBFB;
+
 }
 
 @font-face {
@@ -275,6 +282,121 @@ body {
             margin: auto;
             height: 100%;
             position: absolute;
+        }
+    }
+}
+
+.child-fiche-container {
+    width: 100%;
+    max-width: 360px;
+    color: var(--dark-blue);
+    margin: 1.2rem auto;
+
+    h1 {
+        text-align: center;
+        font-size: 1.4rem;
+        font-family: 'Nunito-Bold';
+
+    }
+
+    .child-fiche {
+        width: 100%;
+        max-width: 320px;
+        margin: 1rem auto;
+        font-family: 'Nunito-Medium';
+        background-color: var(--fiche-bg-white);
+        padding-bottom: 1rem;
+
+        .child-name-g {
+            height: 40px;
+            width: 100%;
+            background-color: var(--fiche-bg-blue);
+            line-height: 40px;
+            padding: 0 0.5rem;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        .child-name-f {
+            height: 40px;
+            width: 100%;
+            background-color: var(--fiche-bg-pink);
+            line-height: 40px;
+            padding: 0 0.5rem;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .child-fiche-info-g {
+            color: var(--fiche-txt-blue);
+            font-family: 'KGPerfectPenmanship';
+        }
+        .child-fiche-info-f {
+            color: var(--fiche-txt-pink);
+            font-family: 'KGPerfectPenmanship';
+        }
+
+        .child-fiche-week-g {
+            display: flex;
+            justify-content: space-between;
+            color: var(--fiche-txt-blue);
+            font-family: 'Nunito-SemiBold';
+            padding: 0 0.5rem;
+
+            .child-presence {
+                position: relative;
+
+                &::after {
+                    content: '';
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background-color: var(--fiche-bg-blue);
+                    position: absolute;
+                    bottom: -0.8rem;
+                    
+                }
+            }
+        }
+
+        .child-fiche-week-f {
+            display: flex;
+            justify-content: space-between;
+            color: var(--fiche-txt-pink);
+            font-family: 'Nunito-SemiBold';
+            padding: 0 0.5rem;
+
+            .child-presence {
+                position: relative;
+
+                &::after {
+                    content: '';
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    background-color: var(--fiche-bg-pink);
+                    position: absolute;
+                    bottom: -0.8rem;
+                }
+            }
+        }
+
+        li {
+            margin: 1.3rem 0;
+
+            div {
+                margin: 1.5rem 0;
+            }
+        }
+
+        .child-fiche-btn-g {
+            width: 160px;
+            height: 40px;
+            background-color: var(--fiche-bg-blue);
+        }
+        .child-fiche-btn-f {
+            width: 160px;
+            height: 40px;
+            background-color: var(--fiche-bg-pink);
         }
     }
 }
