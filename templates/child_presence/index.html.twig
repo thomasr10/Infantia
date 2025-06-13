@@ -2,34 +2,64 @@
 
 {% block title %}Planning | Infantia{% endblock %}
 {% block body %}
-<table>
-    <thead>
-        <tr>
-            <th>Heure</th>
-            {% for day in calendar %}
-                <th>{{ day.day }}</th>
+<section class="child-planning">
+    <h1>Planning de la semaine</h1>
+    <div>
+        <select id="child-select">
+            {% for childName, presence in childPresence %}
+                <option value="{{childName}}">{{childName}}</option>
             {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for hour in range(7, 18) %}
-            <tr>
-                <td>{{ hour }}h</td>
-                <td></td>
+        </select>
+    </div>
+    {% for childName, presences in childPresence %}
+    <table class="planning" id="table-{{ childName }}" style="{% if not loop.first %}display: none;{% endif %}">
+        <thead>
+            <tr class="planning-row">
+                <th style="width: 32px"></th>
                 {% for day in calendar %}
-                    <td>
-                        {% for childName, presences in childPresence %}
-                            {% for presence in presences %}
-                                {{presence.entranceHour}}
-
-                            {% endfor %}
-                        {% endfor %}
-                    </td>
+                    <th>{{ day.day }}</th>
                 {% endfor %}
             </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <tr style="height: 12px;"></tr>
+            {% for hour in range(7, 18) %}
+                <tr>
+                    <td>{{ hour }}h</td>
+                    {% for day in calendar %}
+                        <td class="planning-cell">
+                            {% for presence in presences %}
+                                {% if presence.date.date == day.date %}
+                                    {% set startHour = presence.entranceHour|date("H")|number_format(0, '.', '') %}
+                                    {% set endHour = presence.exitHour|date("H")|number_format(0, '.', '') %}
+                                    {% if hour >= startHour and hour < endHour %}
+                                        <div class="planning-presence"></div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+</section>
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const select = document.getElementById('child-select');
+        const tables = document.querySelectorAll('.child-table');
+
+        select.addEventListener('change', function () {
+            const selected = this.value;
+            tables.forEach(table => {
+                table.style.display = table.id === 'table-' + selected ? 'table' : 'none';
+            });
+        });
+    });
+</script>
 {% endblock %}

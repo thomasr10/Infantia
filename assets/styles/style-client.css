@@ -115,6 +115,7 @@ input {
   --light-grey: #FAF3F7;
   --light-blue: #96BDEB;
   --dark-blue: #0C2A4C;
+  --planning-green: lightgreen;
 }
 
 @font-face {
@@ -211,4 +212,46 @@ body {
   list-style-type: circle;
   padding-left: 1.5rem;
   margin: 1rem 0;
+}
+
+#child-select {
+  font-family: "Nunito-Medium";
+  max-width: 100px;
+  width: 100%;
+  height: 24px;
+  border-radius: 7px;
+}
+
+.child-planning {
+  width: 100%;
+  max-width: 360px;
+  font-family: "Nunito-Medium";
+  margin: 1.4rem auto;
+  color: var(--dark-blue);
+}
+.child-planning table {
+  table-layout: fixed;
+  width: 100%;
+}
+.child-planning #child-select {
+  margin: 0.5rem 0;
+}
+.child-planning h1 {
+  text-align: center;
+  font-family: "Nunito-Bold";
+  font-size: 1.2rem;
+}
+.child-planning .planning {
+  width: 100%;
+}
+.child-planning .planning-cell {
+  position: relative;
+  height: 2.6rem;
+}
+.child-planning .planning-cell .planning-presence {
+  background-color: var(--planning-green);
+  width: 90%;
+  margin: auto;
+  height: 100%;
+  position: absolute;
 }/*# sourceMappingURL=style-client.css.map */

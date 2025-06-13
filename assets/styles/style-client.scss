@@ -113,6 +113,7 @@ input {
     --light-grey: #FAF3F7;
     --light-blue: #96BDEB;
     --dark-blue: #0C2A4C;
+    --planning-green: lightgreen;
 }
 
 @font-face {
@@ -228,4 +229,52 @@ body {
         }
     }
 
+}
+
+#child-select {
+    font-family: 'Nunito-Medium';
+    max-width: 100px;
+    width: 100%;
+    height: 24px;
+    border-radius: 7px;
+}    
+
+
+.child-planning {
+    width: 100%;
+    max-width: 360px;
+    font-family: 'Nunito-Medium';
+    margin: 1.4rem auto;
+    color: var(--dark-blue);
+
+    table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    #child-select {
+        margin: .5rem 0;
+    }
+
+    h1 {
+        text-align: center;
+        font-family: 'Nunito-Bold';
+        font-size: 1.2rem;
+    }
+    .planning {
+        width: 100%;
+    }
+
+    .planning-cell {
+        position: relative; 
+        height: 2.6rem;
+        
+        .planning-presence {
+            background-color: var(--planning-green);
+            width: 90%;
+            margin: auto;
+            height: 100%;
+            position: absolute;
+        }
+    }
 }
