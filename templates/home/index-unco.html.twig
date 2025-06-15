@@ -4,53 +4,52 @@
 
 {% block body %}
 
-{% if not app.user %}
-<section class="home-unconnected">
-    <section class="home-txt">
-        <h1>Bienvenue sur Infantia</h1>
-        <p>Infantia est une solution de gestion moderne dédiée aux crèches, conçue pour simplifier la vie des équipes pédagogiques tout en renforçant le lien avec les familles.
-        Pensé pour répondre aux besoins quotidiens des structures d’accueil de la petite enfance, Infantia propose deux espaces distincts et complémentaires.</p>
-        <figure>
-            <img src="/img/img-home.webp" alt="Photo d'un bébé dans une crèche"</>
-        </figure>
-        <h2>‍Espace Parents</h2>
-        <ul>
-            <li>Consultez le planning de votre enfant (activités, présences, menus…)</li>
-            <li>Recevez des notifications et messages de l’équipe</li>
-            <li>Centralisez les informations de chaque enfant</li>
-            <li>Accédez facilement aux documents et informations importantes</li>
-        </ul>
-        <h2>Espace Éducateurs et Administration</h2>
-        <ul>
-            <li>Gérez les présences, les groupes et les activités</li>
-            <li>Planifiez les journées en quelques clics</li>
-            <li>Centralisez les informations de chaque enfant</li>
-            <li>Suivez les communications avec les familles</li>
-        </ul>    
-    </section>
+    {% if not app.user %}
+        <section class="home-unconnected">
+            <section class="home-txt">
+                <h1>Bienvenue sur Infantia</h1>
+                <p>Infantia est une solution de gestion moderne dédiée aux crèches, conçue pour simplifier la vie des équipes pédagogiques tout en renforçant le lien avec les familles.
+                Pensé pour répondre aux besoins quotidiens des structures d’accueil de la petite enfance, Infantia propose deux espaces distincts et complémentaires.</p>
+                <figure>
+                    <img src="/img/img-home.webp" alt="Photo d'un bébé dans une crèche"</>
+                </figure>
+                <h2>‍Espace Parents</h2>
+                <ul>
+                    <li>Consultez le planning de votre enfant (activités, présences, menus…)</li>
+                    <li>Recevez des notifications et messages de l’équipe</li>
+                    <li>Centralisez les informations de chaque enfant</li>
+                    <li>Accédez facilement aux documents et informations importantes</li>
+                </ul>
+                <h2>Espace Éducateurs et Administration</h2>
+                <ul>
+                    <li>Gérez les présences, les groupes et les activités</li>
+                    <li>Planifiez les journées en quelques clics</li>
+                    <li>Centralisez les informations de chaque enfant</li>
+                    <li>Suivez les communications avec les familles</li>
+                </ul>    
+            </section>
 
-</section>
-{% endif %}
+        </section>
+    {% endif %}
 
-{% if is_granted('ROLE_PARENT') %}
-<section>
-<div>
-    <select id="child-select">
-        {% for child in childrenEntityArray %}
-            <option value="{{child.firstName}}">{{child.firstName}}</option>
-        {% endfor %}
-    </select>
-</div>
-<div id="program-container"></div>
+    {% if is_granted('ROLE_PARENT') %}
+        <section class="home-parent">
+        <h1>Planning de la journée</h1>
+        <div class="home-child-select">
+            <select id="child-select">
+                {% for child in childrenEntityArray %}
+                    <option value="{{child.firstName}}">{{child.firstName}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div id="program-container"></div>
 
-</section>
-
-
-{% endif %}
-
+        </section>
+    {% endif %}
 
 {% endblock %}
 {% block javascripts %}
+    {{ parent() }}
     {% if is_granted('ROLE_PARENT') %}
         <script id="programs-data" type="text/javascript">
             window.programs = {{ programByChildName|json_encode|raw }};
@@ -58,3 +57,4 @@
         <script src="{{ asset('js/home_parent.js') }}"></script>
     {% endif %}
 {% endblock %}
+

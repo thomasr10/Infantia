@@ -171,13 +171,50 @@ body {
   width: 100%;
   position: relative;
 }
-.mobile-header a {
+.mobile-header a.unco {
   color: var(--light-grey);
   font-family: "Nunito-SemiBold";
   position: absolute;
   top: 50%;
   right: 0rem;
   transform: translate(-50%, 0);
+}
+.mobile-header .burger-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translate(-50%, 0);
+  color: var(--light-grey);
+  cursor: pointer;
+}
+.mobile-header .burger-menu {
+  background-color: var(--light-blue);
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 180px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+.mobile-header .burger-menu ul {
+  margin: 0 0.5rem;
+  height: auto;
+}
+.mobile-header .burger-menu ul li {
+  line-height: 2rem;
+  height: 2rem;
+  width: 100%;
+}
+.mobile-header .burger-menu ul li a {
+  font-family: "Nunito-Medium";
+  color: var(--light-grey);
+}
+
+.burger-menu.open {
+  max-height: 300px;
+  opacity: 1;
 }
 
 .home-unconnected figure {
@@ -279,6 +316,11 @@ body {
   font-family: "Nunito-Medium";
   background-color: var(--fiche-bg-white);
   padding-bottom: 1rem;
+  border: solid 2px var(--dark-blue);
+  border-radius: 8px;
+}
+.child-fiche-container .child-fiche .infos {
+  padding: 0 0.25rem;
 }
 .child-fiche-container .child-fiche .child-name-g {
   height: 40px;
@@ -354,9 +396,129 @@ body {
   width: 160px;
   height: 40px;
   background-color: var(--fiche-bg-blue);
+  border: none;
+  color: var(--dark-blue);
+  border-radius: 7px;
+  font-family: "Nunito-Bold";
+  font-size: 1rem;
+  cursor: pointer;
 }
 .child-fiche-container .child-fiche .child-fiche-btn-f {
   width: 160px;
   height: 40px;
   background-color: var(--fiche-bg-pink);
+  border: none;
+  color: var(--dark-blue);
+  border-radius: 7px;
+  font-family: "Nunito-Bold";
+  font-size: 1rem;
+  cursor: pointer;
+}
+.child-fiche-container .child-fiche .btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.no-program {
+  font-family: "Nunito-Medium";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50%;
+}
+
+.home-child-select {
+  font-family: "Nunito-Medium";
+  max-width: 100px;
+  width: 100%;
+  height: 24px;
+  border-radius: 7px;
+  margin: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .mobile-header {
+    height: 100px;
+  }
+  .mobile-header figure {
+    max-width: 80px;
+  }
+  .mobile-header .burger-menu {
+    width: 250px;
+  }
+  .home-unconnected figure {
+    max-width: 500px;
+  }
+  .home-unconnected .home-txt {
+    max-width: 500px;
+  }
+  .fiche-container .fiche {
+    max-width: 600px;
+  }
+  .planning-container .planning {
+    max-width: 600px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .mobile-header {
+    height: 120px;
+  }
+  .mobile-header figure {
+    max-width: 100px;
+  }
+  .mobile-header .burger-menu {
+    width: 300px;
+  }
+  .home-unconnected figure {
+    max-width: 700px;
+  }
+  .home-unconnected .home-txt {
+    max-width: 700px;
+  }
+  .fiche-container .fiche {
+    max-width: 800px;
+  }
+  .planning-container .planning {
+    max-width: 800px;
+  }
+}
+.home-parent h1 {
+  text-align: center;
+  font-size: 1.4rem;
+  font-family: "Nunito-Bold";
+  margin-top: 1.2rem;
+}
+
+#program-container {
+  width: 100%;
+  max-width: 360px;
+  margin: 1.2rem auto;
+  color: var(--dark-blue);
+  font-family: "Nunito-Medium";
+}
+#program-container .title {
+  font-size: 1rem;
+  font-family: "Nunito-Bold";
+  margin-bottom: 1rem;
+}
+#program-container .desc {
+  font-size: 1rem;
+  line-height: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--dark-blue);
+  font-family: "Nunito-Regular";
+}
+
+@media screen and (min-width: 768px) {
+  #program-container {
+    max-width: 600px;
+    font-size: 1.2rem;
+    margin: 1.5rem auto;
+  }
+}
+@media screen and (min-width: 1024px) {
+  #program-container {
+    max-width: 800px;
+  }
 }/*# sourceMappingURL=style-client.css.map */

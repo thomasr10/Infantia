@@ -113,8 +113,14 @@ input {
     --light-grey: #FAF3F7;
     --light-blue: #96BDEB;
     --dark-blue: #0C2A4C;
-
+    --darklight-blue: #346BAA;
+    --white: #FFFBFB;
+    --light-green: #8CE48F;
+    --dark-green: #2d5c2f;
+    --light-red: #FF7070;
     --hoverBtn-blue: #90aecf;
+    --light-purple: #C1B5EE;
+    --dark-purple: #4A3F73;
 }
 
 @font-face {
@@ -200,15 +206,17 @@ body {
             li {
                 line-height: 2rem;
 
-                &:hover > ul {
+                &:hover>ul {
                     opacity: 1;
                     max-height: fit-content;
                 }
-                a, span {
+
+                a,
+                span {
                     color: var(--light-grey);
                     font-family: 'Nunito-Medium';
                     cursor: pointer;
-                }                
+                }
             }
 
             ul {
@@ -240,28 +248,29 @@ body {
         left: 50%;
         transform: translate(-50%, -50%);
 
-    .h1-login {
-        font-family: 'KGPerfectPenmanship';
-        font-size: 2rem;
-        text-align: center;
-    }
+        .h1-login {
+            font-family: 'KGPerfectPenmanship';
+            font-size: 2rem;
+            text-align: center;
+        }
 
-    .login-input {
-        font-family: 'KGPerfectPenmanship';
-        font-size: 0.9rem;
-        margin-top: 1.2rem;
+        .login-input {
+            font-family: 'KGPerfectPenmanship';
+            font-size: 0.9rem;
+            margin-top: 1.2rem;
+        }
+
+        input {
+            width: 260px;
+            height: 32px;
+            border-radius: 7px;
+        }
+
+        .login-btn {
+            display: flex;
+            justify-content: center;
+        }
     }
-    
-    input {
-        width: 260px;
-        height: 32px;
-        border-radius: 7px;
-    }
-    .login-btn {
-        display: flex;
-        justify-content: center;
-    }
-}
 }
 
 
@@ -283,5 +292,217 @@ body {
 
     &:hover {
         background-color: var(--hoverBtn-blue);
+    }
+}
+
+.dashboard {
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    h1 {
+        font-size: 1.4rem;
+        font-family: 'Nunito-Bold';
+        color: var(--darklight-blue);
+        margin-top: 1.2rem;
+        text-align: center;
+    }
+
+    .box-container {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin: 2rem auto;
+        font-family: 'KGPerfectPenmanship';
+    }
+
+    .child-box,
+    .educ-box {
+        width: 140px;
+        height: 140px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .child-box {
+        background-color: var(--darklight-blue);
+        color: var(--white);
+    }
+
+    .educ-box {
+        background-color: var(--white);
+        color: var(--darklight-blue);
+    }
+
+    .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .num {
+        font-size: 3rem;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .label {
+        font-size: 1rem;
+        font-family: 'KGPerfectPenmanship';
+    }
+
+
+    .allergy-box {
+        background-color: var(--light-green);
+        padding: 1rem;
+        border-radius: 12px;
+        max-width: 400px;
+        font-family: 'KGPerfectPenmanship';
+        color: var(--dark-green);
+    }
+
+    .allergy-box .title {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .allergy-box ul {
+        list-style-type: '✶ ';
+        padding-left: 1.2rem;
+        margin: 0;
+    }
+
+    .allergy-box li {
+        margin-bottom: 0.4rem;
+    }
+
+    .birthday {
+        width: 100%;
+        font-family: 'KGPerfectPenmanship';
+        background-color: var(--white);
+        color: var(--light-red);
+        margin: 1rem 0;
+        padding: 1rem;
+        border-radius: 12px;
+
+        p {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+    }
+
+    .dash-program {
+        width: 100%;
+        background-color: var(--light-purple);
+        font-family: 'KGPerfectPenmanship';
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        color: var(--dark-purple);
+
+        h2 {
+            text-decoration: underline;
+        }
+
+        h3 {
+            text-align: center;
+            font-weight: 600;
+            margin: 1rem 0;
+        }
+        li {
+            line-height: 2rem;
+            text-align: center;
+        }
+    }
+
+    .general-infos {
+        width: 100%;
+        background-color: var(--darklight-blue);
+        font-family: 'KGPerfectPenmanship';
+        border-radius: 12px;
+        padding: 1rem;
+        margin: 1rem 0;
+        color: var(--white);
+    }
+}
+
+// Media Queries
+@media screen and (min-width: 768px) {
+    .mobile-header {
+        height: 100px;
+        
+        figure {
+            max-width: 80px;
+        }
+
+        .burger-menu {
+            width: 250px;
+        }
+    }
+
+    .form-container {
+        .login-form {
+            width: 400px;
+        }
+    }
+
+    .dashboard-container {
+        .dashboard {
+            max-width: 600px;
+        }
+    }
+
+    .fiche-container {
+        .fiche {
+            max-width: 600px;
+        }
+    }
+
+    .planning-container {
+        .planning {
+            max-width: 600px;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .mobile-header {
+        height: 120px;
+        
+        figure {
+            max-width: 100px;
+        }
+
+        .burger-menu {
+            width: 300px;
+        }
+    }
+
+    .form-container {
+        .login-form {
+            width: 500px;
+        }
+    }
+
+    .dashboard-container {
+        .dashboard {
+            max-width: 800px;
+        }
+    }
+
+    .fiche-container {
+        .fiche {
+            max-width: 800px;
+        }
+    }
+
+    .planning-container {
+        .planning {
+            max-width: 800px;
+        }
     }
 }

@@ -13,15 +13,23 @@
         <nav class="mobile-header">
             <figure><img src="/img/logo-infantia.png" alt="Logo Infantia"/></figure>
             {% if not app.user %}
-            <a href="{{path("app_login")}}">Connexion</a>
+            <a class="unco" href="{{path("app_login")}}">Connexion</a>
             {% else %}
-            <a href="{{path("app_logout")}}">Déconnexion</a>
+            <div id="burger-btn" class="burger-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg>           
+            </div>
+            <div id="burger-menu" class="burger-menu">
+                <ul>
+                    <li><a href="{{path("app_home")}}">Accueil</a></li>
+                    <li><a href="{{path("app_child_presence")}}">Planning</a></li>
+                    <li><a href="{{path("app_logout")}}">Déconnexion</a></li>
+                </ul>
+            </div>
             {% endif %}   
         </nav>
         {% block body %}{% endblock %}
-
         {% block javascripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
+         <script src="{{ asset('js/burger-menu.js') }}"></script>
         {% endblock %}
     </body>
 </html>

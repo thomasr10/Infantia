@@ -71,7 +71,7 @@
         {% for childName, childInfo in childPresence %}
             <div class="child-fiche">
                 <div class="{{ childInfo.gender == 'G' ? 'child-name-g' : 'child-name-f' }}">{{ childName }}</div>
-                <div>
+                <div class="infos">
                     <ul>
                         <li>
                             <span class="child-fiche-key">Date d'entrée :</span>
@@ -109,11 +109,19 @@
                             </div>
                         </li>
                     </ul>
-                    <button type="button" class="{{ childInfo.gender == 'G' ? 'child-fiche-btn-g' : 'child-fiche-btn-f' }}">Fiche de fin de journée</button>
                 </div>
             </div>
         {% endfor %}
     </section>
+    <div id="end-day-container" class="end-day-modal hidden"></div>
 {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {% if is_granted('ROLE_EDUCATOR')%}
+        <script src="{{ asset('js/child_fiche.js') }}"></script>
+    {% endif %}
 
+    {% if is_granted('ROLE_PARENT')%}
+        {{ parent() }}
+    {% endif %}
 {% endblock %}

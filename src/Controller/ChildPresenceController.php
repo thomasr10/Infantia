@@ -92,9 +92,11 @@ final class ChildPresenceController extends AbstractController
                 'totalTime' => $totalTime,
                 'days' => $arrayDateEntity,
                 'presenceDays' => $weekPresence,
+                'todaysDate' => $todaysDate->format('d/m/Y'),
                 'allergies' =>$childPresenceEntity->getChild()->getAllergy(),
                 'gender' => $childPresenceEntity->getChild()->getGender(),
-                'parent' => $childPresenceEntity->getChild()->getRepresentative()
+                'parent' => $childPresenceEntity->getChild()->getRepresentative(),
+                'id' => $childPresenceEntity->getChild()->getId()
             ];
         }
 

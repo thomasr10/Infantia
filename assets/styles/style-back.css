@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *,
 *:before,
 *:after {
@@ -115,7 +116,14 @@ input {
   --light-grey: #FAF3F7;
   --light-blue: #96BDEB;
   --dark-blue: #0C2A4C;
+  --darklight-blue: #346BAA;
+  --white: #FFFBFB;
+  --light-green: #8CE48F;
+  --dark-green: #2d5c2f;
+  --light-red: #FF7070;
   --hoverBtn-blue: #90aecf;
+  --light-purple: #C1B5EE;
+  --dark-purple: #4A3F73;
 }
 
 @font-face {
@@ -196,7 +204,8 @@ body {
   max-height: -moz-fit-content;
   max-height: fit-content;
 }
-.mobile-header .burger-menu ul li a, .mobile-header .burger-menu ul li span {
+.mobile-header .burger-menu ul li a,
+.mobile-header .burger-menu ul li span {
   color: var(--light-grey);
   font-family: "Nunito-Medium";
   cursor: pointer;
@@ -263,4 +272,121 @@ body {
 }
 .blue-btn:hover {
   background-color: var(--hoverBtn-blue);
+}
+
+.dashboard {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.dashboard h1 {
+  font-size: 1.4rem;
+  font-family: "Nunito-Bold";
+  color: var(--darklight-blue);
+  margin-top: 1.2rem;
+  text-align: center;
+}
+.dashboard .box-container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem auto;
+  font-family: "KGPerfectPenmanship";
+}
+.dashboard .child-box,
+.dashboard .educ-box {
+  width: 140px;
+  height: 140px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+}
+.dashboard .child-box {
+  background-color: var(--darklight-blue);
+  color: var(--white);
+}
+.dashboard .educ-box {
+  background-color: var(--white);
+  color: var(--darklight-blue);
+}
+.dashboard .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard .num {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.dashboard .label {
+  font-size: 1rem;
+  font-family: "KGPerfectPenmanship";
+}
+.dashboard .allergy-box {
+  background-color: var(--light-green);
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 400px;
+  font-family: "KGPerfectPenmanship";
+  color: var(--dark-green);
+}
+.dashboard .allergy-box .title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.dashboard .allergy-box ul {
+  list-style-type: "✶ ";
+  padding-left: 1.2rem;
+  margin: 0;
+}
+.dashboard .allergy-box li {
+  margin-bottom: 0.4rem;
+}
+.dashboard .birthday {
+  width: 100%;
+  font-family: "KGPerfectPenmanship";
+  background-color: var(--white);
+  color: var(--light-red);
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 12px;
+}
+.dashboard .birthday p {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.dashboard .dash-program {
+  width: 100%;
+  background-color: var(--light-purple);
+  font-family: "KGPerfectPenmanship";
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: var(--dark-purple);
+}
+.dashboard .dash-program h2 {
+  text-decoration: underline;
+}
+.dashboard .dash-program h3 {
+  text-align: center;
+  font-weight: 600;
+  margin: 1rem 0;
+}
+.dashboard .dash-program li {
+  line-height: 2rem;
+  text-align: center;
+}
+.dashboard .general-infos {
+  width: 100%;
+  background-color: var(--darklight-blue);
+  font-family: "KGPerfectPenmanship";
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  color: var(--white);
 }/*# sourceMappingURL=style-back.css.map */

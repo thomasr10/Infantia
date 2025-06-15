@@ -65,7 +65,7 @@ final class HomeController extends AbstractController
 
         
 
-        if ($user && in_array('ROLE_ADMIN', $user->getRoles())) {
+        if ($user && in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_EDUCATOR', $user->getRoles())) {
             // récupérer le nombre d'enfants présents aujourd'hui
 
             $todaysPresence = $childPresenceRepository->getTodaysPresence($todaysDateEntity);
@@ -145,7 +145,15 @@ final class HomeController extends AbstractController
 
             // educateur
             if (in_array('ROLE_EDUCATOR', $user->getRoles())) {
-                return $this->render('home/index-co.html.twig');
+                return $this->render('home/index-co.html.twig', [
+                    'countChildPresence' => $countTodaysPresence,
+                    'childAllergy' => !empty($childAllergy) ? $childAllergy : 'Aucun régime spécial aujourd\'hui',
+                    'childBirthday' => !empty($childBirthday) ? $childBirthday : 'Aucun anniversaire aujourd\'hui',
+                    'totalChildren' => $countAllChildren,
+                    'programPapillons' => $team1Program,
+                    'programOursons' => $team2Program,
+                    'programCastors' => $team3Program,
+                ]);
             }
 
         }
